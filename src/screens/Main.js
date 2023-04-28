@@ -1,22 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, Text, View, Image, FlatList,} from 'react-native';
 import {TextInput, ListItem, Avatar} from '@react-native-material/core';
 import Header from '../components/Header';
 import data from '../../api/SampleData';
+import { Context } from '../Context/messageContext';
 
 const Main = () => {
   const [text, setText] = useState('');
-  
+  const {boundActions} = useContext(Context)
+  const [apiData, setAPIData] = useState([])
 
   useEffect(() => {
-    
+    const result = boundActions.getMessages();
+    setAPIData(result);
   },[])
 
   return (
     <View style={styles.mainView}>
       <Header />
       <FlatList 
-      data={data}
+      data={apiData}
       renderItem={({item}) => {
         return <ListItem title={item.title} secondaryText={item.message} leadingMode='avatar' 
         leading={
