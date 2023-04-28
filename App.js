@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, FlatList,} from 'react-native';
 import {TextInput, ListItem, Avatar} from '@react-native-material/core';
 import Header from './src/components/Header';
 import data from './api/SampleData';
 
 const App = () => {
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+
+  },[])
+
   return (
     <View style={styles.mainView}>
       <Header />
@@ -20,7 +26,7 @@ const App = () => {
       horizontal={false}
       
       />
-      <TextInput label="Message Here" style={styles.inputStyle}/>
+      <TextInput label="Message Here" style={styles.inputStyle} onChangeText={(newText) => setText(newText)} value={text}/>
     </View>
   )
 };
