@@ -1,47 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, FlatList,} from 'react-native';
-import {TextInput, ListItem, Avatar} from '@react-native-material/core';
-import Header from './src/components/Header';
-import data from './api/SampleData';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import Main from './src/screens/Main';
+import {Context, Provider} from './src/Context/messageContext';
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [text, setText] = useState('');
-
-  useEffect(() => {
-
-  },[])
-
-  return (
-    <View style={styles.mainView}>
-      <Header />
-      <FlatList 
-      data={data}
-      renderItem={({item}) => {
-        return <ListItem title={item.title} secondaryText={item.message} leadingMode='avatar' 
-        leading={
-          <Avatar image={{uri: item.avatar}}/>
-        }
-        />
-      }}
-      horizontal={false}
-      
-      />
-      <TextInput label="Message Here" style={styles.inputStyle} onChangeText={(newText) => setText(newText)} value={text}/>
-    </View>
+  return(
+    <Provider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Main'>
+        <Stack.Screen name="Main" component={Main} options={{
+          headerShown: false
+        }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    </Provider>
   )
-};
-
-const styles = StyleSheet.create({
-  inputStyle: {
-    marginHorizontal: 50,
-    marginBottom: 50
-  },
-  mainView: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center'
-  }
-});
+}
 
 export default App;
